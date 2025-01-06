@@ -1,9 +1,10 @@
-# Password generator
+import re
 import secrets
 import string
 
 
-def generate_password(length):
+def generate_password(length=16, nums=1, special_chars=1, uppercase=1, lowercase=1):
+
     # Define the possible characters for the password
     letters = string.ascii_letters
     digits = string.digits
@@ -12,11 +13,28 @@ def generate_password(length):
     # Combine all characters
     all_characters = letters + digits + symbols
 
-    # Generate password
-    password = ''
-    for _ in range(length):
-        password += secrets.choice(all_characters)
+    while True:
+        password = ''
+        # Generate password
+        for _ in range(length):
+            password += secrets.choice(all_characters)
+        
+        constraints = [
+            (nums, r'\d'),
+            (special_chars, fr'[{symbols}]'),
+            (uppercase, r'[A-Z]'),
+            (lowercase, r'[a-z]')
+        ]
+
+        # Check constraints        
+        if all(
+            constraint <= len(re.findall(pattern, password))
+            for constraint, pattern in constraints
+        ):
+            break
+    
     return password
 
-
-print(generate_password(10))
+if __name__ == '__main__':
+    new_password = generate_password()
+    print('Generated password:', new_password)
