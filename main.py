@@ -3,6 +3,17 @@ import secrets
 import string
 
 
+"""
+Generate a random password with specified constraints.
+Args:
+    length (int): The length of the password. Default is 16.
+    nums (int): Minimum number of numeric characters in the password. Default is 1.
+    special_chars (int): Minimum number of special characters in the password. Default is 1.
+    uppercase (int): Minimum number of uppercase letters in the password. Default is 1.
+    lowercase (int): Minimum number of lowercase letters in the password. Default is 1.
+Returns:
+    str: The generated password that meets the specified constraints.
+"""
 def generate_password(length=16, nums=1, special_chars=1, uppercase=1, lowercase=1):
 
     # Define the possible characters for the password
